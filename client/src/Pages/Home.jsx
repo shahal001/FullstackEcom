@@ -1,14 +1,15 @@
-import React from 'react'
-import Header from '../Components/Header'
-import Slider from 'react-slick'
+// src/Home.jsx
+import React from 'react';
+import Header from '../Components/Header';
+import MainBanner  from '../Components/MainBanner';  
 
 const Home = () => {
   return (
     <div>
-        <Header/>
-        <Slider/>
+      <Header/>
+      <MainBanner/>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
