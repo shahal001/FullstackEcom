@@ -3,7 +3,7 @@ import React from 'react';
 
 export const NextArrow = ({ className, style, onClick }) => (
   <div
-    className={`${className} bg-gray-800 text-white rounded-full p-2 hover:bg-gray-700`}
+    className={`${className} text-white rounded-full  `}
     style={{ ...style, display: 'block', right: '10px', zIndex: 10 }}
     onClick={onClick}
   >
@@ -13,7 +13,7 @@ export const NextArrow = ({ className, style, onClick }) => (
 
 export const PrevArrow = ({ className, style, onClick }) => (
   <div
-    className={`${className} bg-gray-800 text-white rounded-full p-2 hover:bg-gray-700`}
+    className={`${className} text-white rounded-full  `}
     style={{ ...style, display: 'block', left: '10px', zIndex: 10 }}
     onClick={onClick}
   >

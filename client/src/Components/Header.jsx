@@ -13,7 +13,7 @@ const Header = () => {
   };
 
   return (
-    <div className="relative pt-[72px]">
+    <div className="relative pt-[72px] ">
       <nav className="bg-gray-800 text-white fixed top-0 left-0 w-full z-20">
         <div className="container mx-auto flex justify-between items-center p-4">
           {/* Logo */}
@@ -53,11 +53,11 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`absolute top-16 left-0 w-full z-20 md:hidden ${isOpen ? 'block' : 'hidden'} bg-gray-700`}>
+        <div className={`absolute top-16 left-0 w-full z-20 flex flex-col items-center p-2 md:hidden ${isOpen ? 'block' : 'hidden'} bg-gray-700`}>
           <Link to="/" onClick={closeMenu} className="block px-4 py-2 hover:bg-gray-600">Home</Link>
           <Link to="/products" onClick={closeMenu} className="block px-4 py-2 hover:bg-gray-600">Products</Link>
           <Link to="/account" onClick={closeMenu} className="block px-4 py-2 hover:bg-gray-600">Account</Link>
-          <Link to="/login" onClick={closeMenu} className="block px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white">Login</Link>
+          <Link to="/login" onClick={closeMenu} className="block px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white w-full rounded-sm text-center">Login</Link>
         </div>
       </nav>
     </div>
