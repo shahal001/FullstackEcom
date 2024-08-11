@@ -1,8 +1,8 @@
 // src/Home.jsx
-import React from 'react';
-import Header from '../Components/Header';
-import MainBanner  from '../Components/MainBanner';  
-import Container from '../Components/Container';
+import React from "react";
+import Header from "../Components/Header";
+import MainBanner from "../Components/MainBanner";
+import Container from "../Components/Container";
 
 const Home = () => {
   return (
@@ -12,6 +12,6 @@ const Home = () => {
       <Container/>
     </div>
   );
-}
+};
 
 export default Home;
