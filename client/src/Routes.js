@@ -1,7 +1,7 @@
 import Home from "./Pages/Home";
 import Login from "./Pages/login";
 import Accounts from "./Pages/Accounts";
-import Product from "./Pages/Product";
+import Products from "./Pages/Products";
 
 
-export { Home, Login, Accounts, Product };
+export { Home, Login, Accounts, Products };

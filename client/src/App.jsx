@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import {Accounts, Home,Login, Product} from "./Routes"
+import {Accounts, Home,Login, Products} from "./Routes"
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/account' element={<Accounts/>}/>
-        <Route path='/product' element={<Product/>}/>
+        <Route path='/product' element={<Products/>}/>
        </Routes>
      </BrowserRouter>
     </>

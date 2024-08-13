@@ -5,7 +5,7 @@ import { server } from "../Server"; // Ensure the server variable is correctly i
 const ProductContext = createContext();
 
 export const ProductContextProvider = ({ children }) => {
-  const [product, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [topProducts, setTopProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,7 @@ export const ProductContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ product, topProducts, totalPages, loading }}>
+    <ProductContext.Provider value={{ products, topProducts, totalPages, loading }}>
       {children}
     </ProductContext.Provider>
   );
