@@ -13,11 +13,9 @@ const Products = () => {
     setCategory,
     price,
     setPrice,
+    categories,
   } = ProductData();
 
-  
-
-  // console.log(products)
   return (
     <div className="max-w-7xl mx-auto p-4">
       {/* Header Section */}
@@ -32,26 +30,33 @@ const Products = () => {
       <div className="mb-6">
         <h1 className="text-xl font-semibold mb-4">Filters</h1>
         <div className="space-y-4">
+          {/* Search Input */}
           <input
-            type="search"
+            type="text"
             placeholder="Search"
             value={search}
-            onChange={(e)=>setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
             className="w-full bg-blue-50 outline-none p-3 rounded-md shadow-sm"
           />
+
+          {/* Category Dropdown */}
           <label>
             Category
             <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               className="w-full text-black"
-              // Handle selection changes
             >
-              {category.map((p) => (
-                <option key={p} value={p}>
-                  {p}
+              <option value="">All Categories</option>
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c}
                 </option>
               ))}
             </select>
           </label>
+
+          {/* Price Range Slider */}
           <input
             type="range"
             min="0"

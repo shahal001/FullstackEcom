@@ -9,21 +9,22 @@ export const ProductContextProvider = ({ children }) => {
   const [topProducts, setTopProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState([]); // Initialize as an empty string
-  const [price, setPrice] = useState(""); // Initialize as an empty string
+  const [price, setPrice] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [category, setCategory] = useState(""); // Single selected category
+  const [categories, setCategories] = useState([]); // All available categories
 
   async function fetchProducts() {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${server}/product/all`);
-
+      const { data } = await axios.get(`${server}/product/all`, {
+        params: { search, category, price, page },
+      });
       setProducts(data.product);
       setTopProducts(data.mostSelling);
       setTotalPages(data.totalPages);
-      setCategory(data.categorys); // Make sure `data.categorys` is an array of categories
+      setCategories(data.categories || []); // Set categories from backend response
     } catch (error) {
       console.log(error);
     } finally {
@@ -33,20 +34,12 @@ export const ProductContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    // Filter products based on search query
-    const results = products.filter(product =>
-      product.title.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilteredProducts(results);
-  }, [search, products]);
+  }, [category, search, price, page]);
 
   return (
     <ProductContext.Provider
       value={{
-        products:filteredProducts,
+        products,
         topProducts,
         totalPages,
         loading,
@@ -58,6 +51,8 @@ export const ProductContextProvider = ({ children }) => {
         setPrice,
         page,
         setPage,
+        categories, 
+        setCategories
       }}
     >
       {children}
