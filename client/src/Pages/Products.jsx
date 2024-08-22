@@ -9,18 +9,37 @@ const Products = () => {
     loading,
     search,
     setSearch,
-    setSearchQuery, // Access the setSearchQuery function
+    setSearchQuery,
     category,
     setCategory,
     price,
     setPrice,
-    categories,
+    page,
     setPage,
+    categories,
+    currentPage,
+    setCurrentPage,
+    totPage,
   } = ProductData();
 
+  const handleNextPage = () => {
+    if (currentPage < totPage) {
+        setPage(currentPage + 1);
+        setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+        setPage(currentPage - 1);
+        setCurrentPage(currentPage - 1);
+    }
+  };
+
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault(); 
     setPage(1); // Reset to first page on new search
+    setCurrentPage(1);
     setSearchQuery(search); // Update the search query to trigger the fetch
   };
 
@@ -76,12 +95,12 @@ const Products = () => {
           <input
             type="range"
             min="0"
-            max="7000"
+            max="1000000"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="relative h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer mt-4"
           />
-          <p>Minimum Price - ${price}</p>
+          <p>Minimum Price - Rs{price}</p>
         </div>
       </div>
 
@@ -96,6 +115,25 @@ const Products = () => {
         ) : (
           <p className="col-span-full text-center text-gray-500">No Products</p>
         )}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="pagination-controls mt-6 flex justify-between items-center">
+        <button 
+          onClick={handlePrevPage} 
+          disabled={currentPage === 1}
+          className={`px-4 py-2 ${currentPage === 1 ? 'bg-gray-300' : 'bg-blue-600 text-white'} rounded-md shadow-sm`}
+        >
+          Previous
+        </button>
+        <span>Page {currentPage} of {totPage}</span>
+        <button 
+          onClick={handleNextPage} 
+          disabled={currentPage === totPage}
+          className={`px-4 py-2 ${currentPage === totPage ? 'bg-gray-300' : 'bg-blue-600 text-white'} rounded-md shadow-sm`}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
