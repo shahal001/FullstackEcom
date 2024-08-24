@@ -2,7 +2,9 @@ import React from 'react'
 
 const Accounts = () => {
   return (
-    <div>Wellcome to your account </div>
+    <div>
+      accout hi
+    </div>
   )
 }
 

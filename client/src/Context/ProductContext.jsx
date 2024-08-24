@@ -21,8 +21,7 @@ export const ProductContextProvider = ({ children }) => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-     
-      const { data } = await axios.get(`${server}/product/all`, {
+     const { data } = await axios.get(`${server}/product/all`, {
         params: { search: searchQuery, category, price, page },
       });
 
