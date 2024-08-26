@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserData } from "../../src/Context/UserContext";
 import toast from "react-hot-toast";
+import { FiShoppingCart } from "react-icons/fi";
+import { CartData } from "../Context/CartContext";
 
 const Header = () => {
   const navigate = useNavigate();
   const { setUser, setIsAuth, isAuth } = UserData(); // Get isAuth from UserData context
+  
+  const {totalItems} = CartData()
 
   const logoutHandler = () => {
     localStorage.clear();
@@ -50,7 +54,16 @@ const Header = () => {
           </div>
 
           {/* Login/Logout Button */}
-          <div className="hidden md:block">
+          <div className="  hidden md:block ">
+            {isAuth && (
+              <button className="p-2">
+                <Link className="flex" to="/cart">
+                  <FiShoppingCart className="text-2xl" />
+                  <div className="text-sm relative bottom-4 -left-2 rounded-full flex items-center justify-center h-7 w-7  bg-green-500 ">{totalItems}</div>
+                </Link>
+              </button>
+            )}
+
             {isAuth ? (
               <button
                 onClick={logoutHandler}
@@ -69,6 +82,7 @@ const Header = () => {
           </div>
 
           {/* Hamburger Menu for Mobile */}
+
           <button
             onClick={toggleMenu}
             className="md:hidden p-2 focus:outline-none"
@@ -110,6 +124,23 @@ const Header = () => {
           >
             Products
           </Link>
+          <Link
+            to="/account"
+            onClick={closeMenu}
+            className="block px-4 py-2 hover:bg-gray-600"
+          >
+            Account
+          </Link>
+          {isAuth && (
+            <Link
+              to="/cart"
+              onClick={closeMenu}
+              className="block px-4 py-2 hover:bg-gray-600"
+            >
+              Your Carts
+            </Link>
+          )}
+
           {isAuth ? (
             <button
               onClick={() => {

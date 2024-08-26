@@ -92,6 +92,7 @@ export const UserContextProvider = ({ children }) => {
     fetchUser();
   }, []);
 
+  
   return (
     <userContext.Provider
       value={{

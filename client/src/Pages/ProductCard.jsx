@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-none bg-gray-600 shadow-md rounded-lg overflow-hidden">
+    <div className="flex-none bg-gray-600 shadow-md rounded-lg overflow-hidden ">
       <div>
         <img
           src={`http://localhost:8000/${product.image}`}

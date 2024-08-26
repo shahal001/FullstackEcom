@@ -43,6 +43,7 @@ const Products = () => {
     setSearchQuery(search); // Update the search query to trigger the fetch
   };
 
+  
   return (
     <div className="max-w-7xl mx-auto p-4">
       {/* Header Section */}

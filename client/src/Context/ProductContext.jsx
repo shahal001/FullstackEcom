@@ -41,6 +41,7 @@ export const ProductContextProvider = ({ children }) => {
     fetchProducts();
   }, [searchQuery, category, price, page]); // Fetch products when any filter or page changes
 
+ 
   return (
     <ProductContext.Provider
       value={{
