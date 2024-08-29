@@ -7,7 +7,7 @@ import { CartData } from "../Context/CartContext";
 function ProductDetails() {
   const [product, setProduct] = useState({});
   const params = useParams();
-  const { addTocart } = CartData();
+  const { addTocart } = CartData(); // Use stock directly if datas is undefined or incorrect
 
   const fetchSingleProduct = async () => {
     try {
@@ -23,8 +23,14 @@ function ProductDetails() {
   }, []);
 
   const addToCartHandler = async () => {
-    if (product._id) {
+    if (product._id && product.stock > 0) {
       await addTocart(product); // Pass the entire product object
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        stock: prevProduct.stock - 1, // Decrement the stock locally
+      }));
+    } else {
+      console.log("Product is out of stock");
     }
   };
 
@@ -51,12 +57,16 @@ function ProductDetails() {
           <div className="text-blue-500 font-medium tracking-wide">Category:</div>
           <h1>{product.category}</h1>
         </div>
+        
+        <div>Stock: {product.stock}</div> {/* Display current stock */}
+        
         <h1 className="font-semibold text-xl">Rs {product.price}</h1>
         <button 
           onClick={addToCartHandler} 
           className="mt-2 text-white bg-blue-500 px-4 py-2 rounded active:bg-blue-700 transform active:scale-95 transition duration-150"
+          disabled={product.stock <= 0} // Disable the button if stock is zero
         >
-          Add to cart
+          {product.stock > 0 ? "Add to cart" : "Out of Stock"}
         </button>
       </div>
     </div>
@@ -64,4 +74,3 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
-

@@ -12,6 +12,7 @@ export const CartContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
+  const [datas, setDatas] = useState([]);
 
   const fetchCart = async () => {
     try {
@@ -50,43 +51,64 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
-  const updateCart = async (action,id) => {
-    try{
-    const {data} = await axios.put(`${server}/cart?action=${action}`,{id},{
-      headers:{ 
-        token,
-      }
-    })  
+  const updateCart = async (action, id) => {
+    try {
+      const { data } = await axios.put(
+        `${server}/cart?action=${action}`,
+        { id },
+        {
+          headers: {
+            token,
+          },
+        }
+      );
 
-    fetchCart();
-    }catch(error){
+      console.log("API Response:", data); // Log the API response to see its structure
+
+      setDatas(data); // Update stock with the response data
+
+      console.log("Updated stock:", data); // Log the updated stock
+
+      fetchCart(); // Refresh the cart state
+    } catch (error) {
       toast.error(error.response?.data?.message || "Error updating cart");
     }
-  }
+  };
 
   const removeFromCart = async (id) => {
-    
-    try{
-
-      const {data} = await axios.delete(`${server}/cart/${id}`,{
-        headers:{
-          token
-        }
-      })
-      toast.success(data.message)
+    try {
+      const { data } = await axios.delete(`${server}/cart/${id}`, {
+        headers: {
+          token,
+        },
+      });
+      
+      toast.success(data.message);
       fetchCart();
-    }catch(error){
-      toast.error(error.response?.data?.message || "Error removing cart cart item");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Error removing cart cart item"
+      );
     }
-
-  }
+  };
 
   useEffect(() => {
     fetchCart();
-  }, []);
+  },[]);
 
   return (
-    <CartContext.Provider value={{ cart, subTotal, totalItems, addTocart, loading, updateCart,removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        subTotal,
+        totalItems,
+        addTocart,
+        loading,
+        updateCart,
+        removeFromCart,
+        datas,
+      }}
+    >
       {children}
       <Toaster />
     </CartContext.Provider>
