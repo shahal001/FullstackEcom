@@ -6,6 +6,8 @@ import Signup from "./Pages/Signup";
 import Verify from "./Pages/Verify";
 import ProductDetails from "./Pages/ProductDetails";
 import Carts from "./Pages/Carts";
+import Checkout from "./Pages/Checkout";
+import Payment from "./Pages/Payment";
 
 export {
   Home,
@@ -16,4 +18,7 @@ export {
   Verify,
   ProductDetails,
   Carts,
+  Checkout,
+  Payment,
+
 };

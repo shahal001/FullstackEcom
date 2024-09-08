@@ -9,6 +9,8 @@ import {
   Verify,
   ProductDetails,
   Carts,
+  Checkout,
+  Payment,
 } from "./Routes";
 import { UserData } from "./Context/UserContext";
 import Loader from "./Components/Loader";
@@ -38,6 +40,8 @@ const App = () => {
               path="/cart"
               element={isAuth ? <Carts/> : <Login />}
             />
+             <Route path="/checkout" element={<Checkout />} />
+             <Route path="/payment" element={<Payment/>}/>
           </Routes>
         </BrowserRouter>
       )}

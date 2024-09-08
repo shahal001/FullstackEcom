@@ -63,11 +63,11 @@ export const CartContextProvider = ({ children }) => {
         }
       );
 
-      console.log("API Response:", data); // Log the API response to see its structure
+      // console.log("API Response:", data); // Log the API response to see its structure
 
       setDatas(data); // Update stock with the response data
 
-      console.log("Updated stock:", data); // Log the updated stock
+      // console.log("Updated stock:", data); // Log the updated stock
 
       fetchCart(); // Refresh the cart state
     } catch (error) {

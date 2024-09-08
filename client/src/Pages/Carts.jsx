@@ -1,6 +1,6 @@
 import React from "react";
 import { CartData } from "../Context/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Carts() {
   const { cart, subTotal, updateCart, removeFromCart } = CartData();
@@ -13,8 +13,10 @@ function Carts() {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleCheckout = () => {
-    // Implement checkout logic here
+    navigate("/checkout")
     console.log("Proceeding to checkout");
   };
 

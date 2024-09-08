@@ -22,16 +22,8 @@ function ProductDetails() {
     fetchSingleProduct();
   }, []);
 
-  const addToCartHandler = async () => {
-    if (product._id && product.stock > 0) {
-      await addTocart(product); // Pass the entire product object
-      setProduct((prevProduct) => ({
-        ...prevProduct,
-        stock: prevProduct.stock - 1, // Decrement the stock locally
-      }));
-    } else {
-      console.log("Product is out of stock");
-    }
+  const addToCartHandler = async (product ) => {
+    await addTocart(product)
   };
 
   return (
@@ -61,13 +53,16 @@ function ProductDetails() {
         <div>Stock: {product.stock}</div> {/* Display current stock */}
         
         <h1 className="font-semibold text-xl">Rs {product.price}</h1>
+        <div className="space-x-3">
         <button 
-          onClick={addToCartHandler} 
+          onClick={()=>addToCartHandler(product._id)} 
           className="mt-2 text-white bg-blue-500 px-4 py-2 rounded active:bg-blue-700 transform active:scale-95 transition duration-150"
           disabled={product.stock <= 0} // Disable the button if stock is zero
         >
           {product.stock > 0 ? "Add to cart" : "Out of Stock"}
         </button>
+        {/* <button className="mt-2 text-white bg-blue-500 px-4  py-2 rounded active:bg-blue-700 transform active:scale-95 transition duration-150" >Buy Now</button> */}
+      </div>
       </div>
     </div>
   );
