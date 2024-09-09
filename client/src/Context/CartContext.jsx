@@ -107,6 +107,8 @@ export const CartContextProvider = ({ children }) => {
         updateCart,
         removeFromCart,
         datas,
+        fetchCart,
+        
       }}
     >
       {children}

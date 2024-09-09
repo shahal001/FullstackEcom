@@ -15,6 +15,7 @@ const Checkout = () => {
   const { user } = UserData();
 
   const navigate = useNavigate()
+  
 
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -38,6 +39,7 @@ const Checkout = () => {
   }, []);
 
   const deleteHandler = async (id) => {
+    if(confirm("Arr you want delete Address.!")){
     try{
    
       const {data} = await axios.delete(`${server}/address/${id}`,{
@@ -50,7 +52,7 @@ const Checkout = () => {
     }catch(error){
       toast.error(error.response.data.message)
     }
-
+  }
   }
 
   return (
@@ -72,7 +74,7 @@ const Checkout = () => {
               <div className="flex gap-3 justify-end ">
               <button className="p-2 bg-red-500 text-white tracking-wider font-semibold flex items-center gap-2 rounded-md px-4 transform transition duration-200 ease-in-out active:scale-95 active:bg-blue-600 focus:outline-none shadow-lg active:shadow-none" onClick={()=>deleteHandler(addr._id)}><MdDelete />Delete</button>
               
-               <button onClick={() => navigate('/payment')}  className="p-2 text-white bg-blue-500 rounded-md tracking-wide font-semibold transform transition duration-200 ease-in-out active:scale-95 active:bg-blue-600 focus:outline-none shadow-lg active:shadow-none" >Use Address</button>
+               <button onClick={() => navigate(`/payment/${addr._id}`)}  className="p-2 text-white bg-blue-500 rounded-md tracking-wide font-semibold transform transition duration-200 ease-in-out active:scale-95 active:bg-blue-600 focus:outline-none shadow-lg active:shadow-none" >Use Address</button>
               
               </div>
             </div>
@@ -114,13 +116,15 @@ export const AddressMod = ({ handleClose, show }) => {
         }
       );
       toast.success("Address added successfully");
-      handleClose(); 
       fetchAddress(); 
+      handleClose(); 
+      
     } catch (error) {
       setError("Failed to add address");
       console.error(error);
     }
   };
+
   
 
   return (
