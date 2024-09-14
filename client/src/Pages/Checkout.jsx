@@ -6,16 +6,13 @@ import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
-
 const Checkout = () => {
   const [show, setShow] = useState(false);
   const [address, setAddress] = useState([]);
   const [error, setError] = useState(null);
 
   const { user } = UserData();
-
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -39,54 +36,63 @@ const Checkout = () => {
   }, []);
 
   const deleteHandler = async (id) => {
-    if(confirm("Arr you want delete Address.!")){
-    try{
-   
-      const {data} = await axios.delete(`${server}/address/${id}`,{
-        headers:{  
-          token:localStorage.getItem("token"),
-        }
-      })
-      toast.success(data.message)
-      fetchAddress()
-    }catch(error){
-      toast.error(error.response.data.message)
+    if (confirm("Are you sure you want to delete this address?")) {
+      try {
+        const { data } = await axios.delete(`${server}/address/${id}`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        });
+        toast.success(data.message);
+        fetchAddress();
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     }
-  }
-  }
+  };
 
   return (
-    <div className="p-4">
-      <h1 className="font-semibold text-2xl tracking-wide">Choose Address</h1>
+    <div className="p-4 space-y-6">
+      <h1 className="font-semibold text-2xl tracking-wide text-gray-800">
+        Choose Address
+      </h1>
 
       {error && <div className="text-red-500">{error}</div>}
 
       {/* Address List */}
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {address.length > 0 ? (
           address.map((addr, index) => (
-            <div key={index} className="p-2 bg-gray-200 rounded-md shadow-sm space-y-2">
-              <p className="font-semibold ">USERID : {addr.user}</p>
-              <p className="p-2 font-semibold bg-gray-300 rounded-md">Name : {user.name}</p>
-              <p className="p-2 font-semibold bg-gray-300 rounded-md">Email : {user.email}</p>
-              <p className="p-2 font-semibold bg-gray-300 rounded-md" >Address : {addr.address}</p>
-              <p className="p-2 font-semibold bg-gray-300 rounded-md">Phone : {addr.phone}</p>
-              <div className="flex gap-3 justify-end ">
-              <button className="p-2 bg-red-500 text-white tracking-wider font-semibold flex items-center gap-2 rounded-md px-4 transform transition duration-200 ease-in-out active:scale-95 active:bg-blue-600 focus:outline-none shadow-lg active:shadow-none" onClick={()=>deleteHandler(addr._id)}><MdDelete />Delete</button>
-              
-               <button onClick={() => navigate(`/payment/${addr._id}`)}  className="p-2 text-white bg-blue-500 rounded-md tracking-wide font-semibold transform transition duration-200 ease-in-out active:scale-95 active:bg-blue-600 focus:outline-none shadow-lg active:shadow-none" >Use Address</button>
-              
+            <div key={index} className="p-4 bg-white rounded-md shadow-md space-y-3">
+              <p className="font-semibold">USER ID: {addr.user}</p>
+              <p className="font-semibold">Name: {user.name}</p>
+              <p className="font-semibold">Email: {user.email}</p>
+              <p className="font-semibold">Address: {addr.address}</p>
+              <p className="font-semibold">Phone: {addr.phone}</p>
+              <div className="flex justify-end gap-3 mt-4">
+                <button
+                  className="flex items-center gap-2 p-2 bg-red-500 text-white font-semibold rounded-md shadow-md hover:bg-red-600 focus:outline-none transform transition-transform active:scale-95"
+                  onClick={() => deleteHandler(addr._id)}
+                >
+                  <MdDelete /> Delete
+                </button>
+                <button
+                  onClick={() => navigate(`/payment/${addr._id}`)}
+                  className="p-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none transform transition-transform active:scale-95"
+                >
+                  Use Address
+                </button>
               </div>
             </div>
           ))
         ) : (
-          <div>No addresses found</div>
+          <div className="text-gray-500">No addresses found</div>
         )}
       </div>
 
       <button
         onClick={handleOpen}
-        className="mt-4 p-3 bg-blue-500 text-white font-semibold rounded-md transform transition duration-200 ease-in-out active:scale-95 active:bg-blue-600 focus:outline-none shadow-lg active:shadow-none"
+        className="mt-4 p-3 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none transform transition-transform active:scale-95"
       >
         Add Address
       </button>
@@ -116,45 +122,36 @@ export const AddressMod = ({ handleClose, show }) => {
         }
       );
       toast.success("Address added successfully");
-      fetchAddress(); 
-      handleClose(); 
-      
+      fetchAddress();
+      handleClose();
     } catch (error) {
       setError("Failed to add address");
       console.error(error);
     }
   };
 
-  
-
   return (
     <div>
-      {/* Only render the modal if 'show' is true */}
       {show && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96 space-y-5">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b pb-3">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Add Your Address
-              </h2>
+              <h2 className="text-xl font-semibold text-gray-800">Add Address</h2>
               <button
                 onClick={handleClose}
                 className="text-gray-500 hover:text-gray-800 focus:outline-none"
-                aria-label="Close modal"
               >
                 &times;
               </button>
             </div>
 
-            {/* Form Content */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-5 mt-4">
               {error && <div className="text-red-500">{error}</div>}
+
               <div>
-                <label
-                  htmlFor="address"
-                  className="block font-medium text-gray-700"
-                >
+                <label htmlFor="address" className="block text-gray-700 font-medium">
                   Address
                 </label>
                 <input
@@ -164,15 +161,12 @@ export const AddressMod = ({ handleClose, show }) => {
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="Enter your address"
                   required
-                  className="p-3 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block font-medium text-gray-700"
-                >
+                <label htmlFor="phone" className="block text-gray-700 font-medium">
                   Phone
                 </label>
                 <input
@@ -183,23 +177,23 @@ export const AddressMod = ({ handleClose, show }) => {
                   placeholder="Enter your phone number"
                   required
                   maxLength={10}
-                  className="p-3 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               {/* Modal Footer */}
-              <div className="flex justify-end space-x-4 pt-3 border-t">
+              <div className="flex justify-end space-x-4">
                 <button
                   onClick={handleClose}
-                  className="p-3 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none w-32"
+                  className="p-3 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="p-3 bg-blue-500 text-white font-semibold rounded-md w-32 tracking-wider hover:bg-blue-600 focus:outline-none"
+                  className="p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
                 >
-                  Add  Address
+                  Add Address
                 </button>
               </div>
             </form>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserData } from "../../src/Context/UserContext";
 import toast from "react-hot-toast";
 import { FiShoppingCart } from "react-icons/fi";
-import { CartData } from "../Context/CartContext";
+import { CartData } from "../../src/Context/CartContext";
 
 const Header = () => {
   const navigate = useNavigate();

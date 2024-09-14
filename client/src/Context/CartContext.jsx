@@ -18,7 +18,7 @@ export const CartContextProvider = ({ children }) => {
     try {
       const { data } = await axios.get(`${server}/cart/all`, {
         headers: {
-          token,
+          token:localStorage.getItem("token")
         },
       });
 

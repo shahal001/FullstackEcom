@@ -9,6 +9,9 @@ import Carts from "./Pages/Carts";
 import Checkout from "./Pages/Checkout";
 import Payment from "./Pages/Payment";
 import OrderSuccess from "./Pages/OrderSuccess";
+import Orders from "./Pages/Orders";
+import OrderPage from "./Pages/OrderPage";
+import Dashboard from "./Admin/Dashboard";
 
 export {
   Home,
@@ -22,5 +25,8 @@ export {
   Checkout,
   Payment,
   OrderSuccess,
+  Orders,
+  OrderPage,
+  Dashboard,
 
 };

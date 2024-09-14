@@ -17,11 +17,12 @@ export const ProductContextProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [totPage, setTotPage] = useState(0);
+  const [adminProduct, setAdminProduct] = useState([]);
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-     const { data } = await axios.get(`${server}/product/all`, {
+      const { data } = await axios.get(`${server}/product/all`, {
         params: { search: searchQuery, category, price, page },
       });
 
@@ -37,11 +38,29 @@ export const ProductContextProvider = ({ children }) => {
     }
   };
 
+  const fetchAdminProducts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${server}/product/admin/all`);
+      
+      if (data && data.products) {
+        setAdminProduct(data.products);
+        setTotPage(data.totalPages);
+      } else {
+        console.log("No products available.");
+      }
+    } catch (error) {
+      console.error("Error fetching admin products:", error.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
-  }, [searchQuery, category, price, page]); // Fetch products when any filter or page changes
+    fetchAdminProducts();
+    }, [searchQuery, category, price, page]); // Fetch products when any filter or page changes
 
- 
   return (
     <ProductContext.Provider
       value={{
@@ -62,7 +81,9 @@ export const ProductContextProvider = ({ children }) => {
         currentPage,
         setCurrentPage,
         totPage,
-        setTotPage
+        setTotPage,
+        adminProduct,
+        fetchAdminProducts,
       }}
     >
       {children}
