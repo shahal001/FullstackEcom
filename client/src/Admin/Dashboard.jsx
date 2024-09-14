@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { ProductData } from "../Context/ProductContext";
 import Home from "../Admin/Pages/Home";
+import AdminOrder from './Pages/AdminOrder';
 
 const Dashboard = ({ user }) => {
   const [activeTab, setActiveTab] = useState("home");
@@ -25,7 +26,7 @@ const Dashboard = ({ user }) => {
           } hover:text-blue-500 transition`}
           onClick={() => setActiveTab("home")}
         >
-          Home
+          Admin Home
         </button>
         <button
           className={`py-2 px-4 ${
@@ -49,7 +50,7 @@ const Dashboard = ({ user }) => {
       <div className="p-6">
         {activeTab === "home" && <Home products={adminProduct} />}
         {activeTab === "data" && <div className="text-center">This is the Data Page</div>}
-        {activeTab === "orders" && <div className="text-center">Here are your Orders</div>}
+        {activeTab === "orders" && <AdminOrder/>}
       </div>
     </div>
   );
