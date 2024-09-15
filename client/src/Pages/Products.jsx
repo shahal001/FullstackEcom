@@ -101,7 +101,7 @@ const Products = () => {
             onChange={(e) => setPrice(e.target.value)}
             className="relative h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer mt-4"
           />
-          <p>Minimum Price - Rs{price}</p>
+          <p>Minimum Price - ₹ {price}</p>
         </div>
       </div>
 

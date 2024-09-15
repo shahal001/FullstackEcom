@@ -84,7 +84,7 @@ const Payment = () => {
               />
               <div className="flex-1">
                 <p className="text-xl font-medium text-gray-800">{e.product.title}</p>
-                <p className="text-gray-600">Price: Rs {e.product.price}</p>
+                <p className="text-gray-600">Price: ₹ {e.product.price}</p>
                 <p className="text-gray-600">Quantity: {e.quantity}</p>
                 <p className="text-gray-600">Stock: {e.product.stock}</p>
               </div>
@@ -101,7 +101,7 @@ const Payment = () => {
       )}
 
       <div className="flex justify-between items-center py-4 border-t border-gray-300">
-        <span className="text-xl font-semibold text-green-600">Subtotal: Rs {subTotal}</span>
+        <span className="text-xl font-semibold text-green-600">Subtotal: ₹ {subTotal}</span>
       </div>
 
       <div className="space-y-4">

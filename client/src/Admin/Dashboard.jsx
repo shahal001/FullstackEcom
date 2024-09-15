@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ProductData } from "../Context/ProductContext";
 import Home from "../Admin/Pages/Home";
 import AdminOrder from './Pages/AdminOrder';
+import AllData from './Pages/AllData';
 
 const Dashboard = ({ user }) => {
   const [activeTab, setActiveTab] = useState("home");
@@ -49,7 +50,7 @@ const Dashboard = ({ user }) => {
       {/* Tabs Content */}
       <div className="p-6">
         {activeTab === "home" && <Home products={adminProduct} />}
-        {activeTab === "data" && <div className="text-center">This is the Data Page</div>}
+        {activeTab === "data" && <AllData products={adminProduct} />}
         {activeTab === "orders" && <AdminOrder/>}
       </div>
     </div>

@@ -38,7 +38,7 @@ const ProductCard = ({ product, admin }) => {
       </div>
       <div className="p-4">
         <h2 className="text-lg font-semibold text-gray-800">{product.title}</h2>
-        <h3 className="text-md text-gray-500 mb-2">Price: Rs {product.price}</h3>
+        <h3 className="text-md text-gray-500 mb-2">Price: ₹ {product.price}</h3>
         <div className="flex justify-between items-center">
           <button
             onClick={() => navigate(`/product/${product._id}`)}

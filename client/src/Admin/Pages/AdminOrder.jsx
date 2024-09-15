@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const AdminOrder = () => {
   const [orders, setOrders] = useState([]);
-
+  const [loading,setLoading] = useState(false);
   const fetchAdminOrder = async () => {
     try {
       const { data } = await axios.get(`${server}/order/all/admin`, {
@@ -24,31 +24,39 @@ const AdminOrder = () => {
   }, []);
 
   const updateStatus = async (id) => {
-    try {
-      const { data } = await axios.put(
-        `${server}/order/${id}`,
-        {},
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
-      toast.success(data.message);
-      fetchAdminOrder(); // Re-fetch orders after updating the status
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to update status");
+    if (confirm(" Are You sure want to update status.?")) {
+      setLoading(true)
+      try {
+        const { data } = await axios.put(
+          `${server}/order/${id}`,
+          {},
+          {
+            headers: {
+              token: localStorage.getItem("token"),
+            },
+          }
+        );
+        toast.success(data.message);
+        fetchAdminOrder(); // Re-fetch orders after updating the status
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to update status");
+        setLoading(false);
+      }
     }
   };
 
-  const totalSubTotal = orders.reduce((total, order) => total + order.subTotal, 0);
+  const totalSubTotal = orders.reduce(
+    (total, order) => total + order.subTotal,
+    0
+  );
 
   return (
     <div className="p-6">
       {/* Total Revenue */}
       <h4 className="text-2xl font-semibold mb-6 text-gray-800">
-        Total Revenue: <span className="text-green-500">INR {totalSubTotal.toFixed(2)}</span>
+        Total Revenue:{" "}
+        <span className="text-green-500">₹ {totalSubTotal.toFixed(2)}</span>
       </h4>
 
       {/* Orders Table */}
@@ -89,6 +97,7 @@ const AdminOrder = () => {
                       <span className="text-gray-500">Order delivered</span>
                     ) : (
                       <button
+                        disabled={loading}
                         onClick={() => updateStatus(order._id)}
                         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                       >
